@@ -85,11 +85,11 @@
           Enter your email you used to create your account so we can send you
           OTP to reset your password
         </p>
-        <form>
-          <input type="email" placeholder="Email" required />
+        <form action="generate_otp.php" method="post">
+          <input type="email" name="email" placeholder="Email" required />
           <button type="submit">Send</button>
           <div class="back-to-login">
-            <p><a href="#">Back to login</a></p>
+            <p><a href="login.html">Back to login</a></p>
           </div>
         </form>
       </div>

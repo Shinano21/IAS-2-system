@@ -22,44 +22,37 @@
         overflow: hidden;
         background-color: #ffffff;
       }
-      .account-image {
+      .create-account-image {
         width: 50%;
       }
-      .account-image img {
+      .create-account-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
-      .account-form {
+      .create-account-form {
         padding: 40px;
         width: 50%;
       }
-      .account-form h2 {
+      .create-account-form h2 {
         margin-bottom: 20px;
         font-size: 24px;
         color: #333;
       }
-      .account-form p {
+      .create-account-form p {
         margin-bottom: 10px;
         color: #666;
       }
-      .account-form input[type="text"],
-      .account-form input[type="email"],
-      .account-form input[type="password"] {
+      .create-account-form input[type="text"],
+      .create-account-form input[type="email"],
+      .create-account-form input[type="password"] {
         width: calc(100% - 20px);
         padding: 10px;
         margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 5px;
       }
-      .account-form a {
-        color: #008cba;
-        text-decoration: none;
-      }
-      .account-form a:hover {
-        text-decoration: underline;
-      }
-      .account-form button {
+      .create-account-form button {
         background-color: #008cba;
         color: #fff;
         border: none;
@@ -67,32 +60,54 @@
         border-radius: 5px;
         cursor: pointer;
       }
-      .account-form button:hover {
+      .create-account-form button:hover {
         background-color: #006f99;
       }
-      .account-form .login-link {
+      .create-account-form .login-link {
         margin-top: 20px;
         text-align: center;
+      }
+      .create-account-form .login-link a {
+        color: #008cba;
+        text-decoration: none;
+      }
+      .create-account-form .login-link a:hover {
+        text-decoration: underline;
       }
     </style>
   </head>
   <body>
     <div class="create-account-container">
-      <div class="account-image">
-        <img src="path/to/your/image.png" alt="Person using laptop" />
+      <div class="create-account-image">
+        <img src="path/to/your/image.png" alt="Working on a laptop" />
       </div>
-      <div class="account-form">
+      <div class="create-account-form">
         <h2>Create Account</h2>
-        <form>
-          <input type="text" placeholder="First Name" required />
-          <input type="text" placeholder="Last Name" required />
-          <input type="text" placeholder="User Name" required />
-          <input type="email" placeholder="Email Address" required />
-          <input type="password" placeholder="Password" required />
-          <div class="login-link">
-            <p>Already have account? <a href="#">Login</a></p>
-          </div>
+        <p>Fill in your details to create an account</p>
+        <form action="create_account.php" method="post">
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            required
+          />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            required
+          />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
           <button type="submit">Create Account</button>
+          <div class="login-link">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+          </div>
         </form>
       </div>
     </div>
