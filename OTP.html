@@ -104,19 +104,62 @@
       </div>
       <div class="form-container">
         <h1>Forgot Password</h1>
-        <p>Enter your OTP code we send to mickeymouse69@gmail.com</p>
-        <div class="otp-inputs">
-          <input type="text" maxlength="1" />
-          <input type="text" maxlength="1" />
-          <input type="text" maxlength="1" />
-          <input type="text" maxlength="1" />
-          <input type="text" maxlength="1" />
-          <input type="text" maxlength="1" />
-        </div>
-        <p>239s <a href="#">Resend OTP code</a></p>
-        <button type="submit">Submit</button>
-        <a href="#" class="back-to-login">Back to login</a>
+        <form id="otpForm" method="POST" action="verify_otp.php">
+          <!-- Action points to the PHP script handling OTP verification -->
+          <p>Enter your OTP code we sent</p>
+          <div class="otp-inputs">
+            <input
+              type="text"
+              name="otp[]"
+              maxlength="1"
+              oninput="moveToNext(this)"
+            />
+            <input
+              type="text"
+              name="otp[]"
+              maxlength="1"
+              oninput="moveToNext(this)"
+            />
+            <input
+              type="text"
+              name="otp[]"
+              maxlength="1"
+              oninput="moveToNext(this)"
+            />
+            <input
+              type="text"
+              name="otp[]"
+              maxlength="1"
+              oninput="moveToNext(this)"
+            />
+            <input
+              type="text"
+              name="otp[]"
+              maxlength="1"
+              oninput="moveToNext(this)"
+            />
+            <input
+              type="text"
+              name="otp[]"
+              maxlength="1"
+              oninput="moveToNext(this)"
+            />
+          </div>
+          <button type="submit" name="submit">Submit</button>
+          <a href="index.html" class="back-to-login">Back to login</a>
+        </form>
       </div>
     </div>
+
+    <script>
+      function moveToNext(currentInput) {
+        if (currentInput.value.length >= 1) {
+          var nextInput = currentInput.nextElementSibling;
+          if (nextInput !== null) {
+            nextInput.focus();
+          }
+        }
+      }
+    </script>
   </body>
 </html>
