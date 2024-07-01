@@ -1,165 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forgot Password</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #e0f0f1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e0f0f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-      .container {
-        display: flex;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        max-width: 800px;
-        width: 100%;
-      }
+    .container {
+      display: flex;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 800px;
+      width: 100%;
+    }
 
-      .image-container {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f7f7f7;
-      }
+    .image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f7f7f7;
+    }
 
-      .image-container img {
-        max-width: 100%;
-        height: auto;
-        border-right: 1px solid #ccc;
-      }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-right: 1px solid #ccc;
+    }
 
-      .form-container {
-        flex: 1;
-        padding: 20px;
-        background-color: white;
-      }
+    .form-container {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+    }
 
-      h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-      }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-      p {
-        font-size: 14px;
-        margin-bottom: 20px;
-      }
+    p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
 
-      .otp-inputs {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
+    .otp-inputs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-      .otp-inputs input {
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        font-size: 18px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
+    .otp-inputs input {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #629caa;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-      }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #629caa;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-      button:hover {
-        background-color: #517f8b;
-      }
+    button:hover {
+      background-color: #517f8b;
+    }
 
-      .back-to-login {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
-        color: #629caa;
-        text-decoration: none;
-      }
+    .back-to-login {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #629caa;
+      text-decoration: none;
+    }
 
-      .back-to-login:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="image-container">
-        <img src="your-image.jpg" alt="Background Image" />
-      </div>
-      <div class="form-container">
-        <h1>Forgot Password</h1>
-        <form id="otpForm" method="POST" action="verify_otp.php">
-          <!-- Action points to the PHP script handling OTP verification -->
-          <p>Enter your OTP code we sent</p>
-          <div class="otp-inputs">
-            <input
-              type="text"
-              name="otp[]"
-              maxlength="1"
-              oninput="moveToNext(this)"
-            />
-            <input
-              type="text"
-              name="otp[]"
-              maxlength="1"
-              oninput="moveToNext(this)"
-            />
-            <input
-              type="text"
-              name="otp[]"
-              maxlength="1"
-              oninput="moveToNext(this)"
-            />
-            <input
-              type="text"
-              name="otp[]"
-              maxlength="1"
-              oninput="moveToNext(this)"
-            />
-            <input
-              type="text"
-              name="otp[]"
-              maxlength="1"
-              oninput="moveToNext(this)"
-            />
-            <input
-              type="text"
-              name="otp[]"
-              maxlength="1"
-              oninput="moveToNext(this)"
-            />
-          </div>
-          <button type="submit" name="submit">Submit</button>
-          <a href="index.html" class="back-to-login">Back to login</a>
-        </form>
-      </div>
+    .back-to-login:hover {
+      text-decoration: underline;
+    }
+
+    .resend-otp {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #629caa;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .resend-otp:hover {
+      text-decoration: underline;
+    }
+
+    .countdown {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image-container">
+      <img src="your-image.jpg" alt="Background Image" />
     </div>
+    <div class="form-container">
+      <h1>Forgot Password</h1>
+      <form id="otpForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <p>Enter the OTP code sent to your registered email</p>
+        <div class="otp-inputs">
+          <input
+            type="text"
+            name="otp[]"
+            maxlength="1"
+            oninput="moveToNext(this)"
+            onkeydown="moveToPrevious(event, this)"
+          />
+          <input
+            type="text"
+            name="otp[]"
+            maxlength="1"
+            oninput="moveToNext(this)"
+            onkeydown="moveToPrevious(event, this)"
+          />
+          <input
+            type="text"
+            name="otp[]"
+            maxlength="1"
+            oninput="moveToNext(this)"
+            onkeydown="moveToPrevious(event, this)"
+          />
+          <input
+            type="text"
+            name="otp[]"
+            maxlength="1"
+            oninput="moveToNext(this)"
+            onkeydown="moveToPrevious(event, this)"
+          />
+          <input
+            type="text"
+            name="otp[]"
+            maxlength="1"
+            oninput="moveToNext(this)"
+            onkeydown="moveToPrevious(event, this)"
+          />
+          <input
+            type="text"
+            name="otp[]"
+            maxlength="1"
+            oninput="moveToNext(this)"
+            onkeydown="moveToPrevious(event, this)"
+          />
+        </div>
+        <button type="submit" name="submit">Submit</button>
+        <a href="index.html" class="back-to-login">Back to login</a>
+        <a id="resendLink" class="resend-otp" href="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">Resend OTP</a>
+        <div id="countdown" class="countdown"></div>
+      </form>
+      <div id="message"></div>
+    </div>
+  </div>
 
-    <script>
-      function moveToNext(currentInput) {
-        if (currentInput.value.length >= 1) {
-          var nextInput = currentInput.nextElementSibling;
-          if (nextInput !== null) {
-            nextInput.focus();
-          }
-        }
+  <script>
+    var countdown = 300; // 300 seconds = 5 minutes
+    var timer = setInterval(function() {
+      countdown--;
+      document.getElementById('countdown').textContent = 'Resend OTP in: ' + countdown + ' seconds';
+
+      if (countdown <= 0) {
+        clearInterval(timer);
+        document.getElementById('resendLink').style.display = 'inline'; // Show resend link
+        document.getElementById('countdown').textContent = ''; // Clear countdown text
       }
-    </script>
-  </body>
+    }, 1000);
+  </script>
+</body>
 </html>
