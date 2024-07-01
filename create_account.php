@@ -12,6 +12,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$message = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
@@ -26,20 +28,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        echo "An account with this email already exists!";
+        $message = "An account with this email already exists!";
     } else {
         // Insert new account into the database
         $sql = "INSERT INTO accounts (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssss", $first_name, $last_name, $email, $password);
         if ($stmt->execute()) {
-            echo "Account created successfully!";
+            $message = "success";
         } else {
-            echo "Error: " . $stmt->error;
+            $message = "Error: " . $stmt->error;
         }
     }
     $stmt->close();
 }
 
 $conn->close();
+header("Location: Caccount.html?message=" . urlencode($message));
+exit();
 ?>
