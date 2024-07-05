@@ -13,7 +13,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #e0e7e9;
+        background-image: linear-gradient( 135deg, #C2FFD8 10%, #465EFB 100%);
       }
       .login-container {
         display: flex;
@@ -21,14 +21,19 @@
         border-radius: 10px;
         overflow: hidden;
         background-color: #ffffff;
+        width: 800px;
+        justify-content: center;
+        align-items: center;
       }
       .login-image {
         width: 50%;
+        position: relative;
       }
       .login-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        display: block;
       }
       .login-form {
         padding: 40px;
@@ -36,8 +41,9 @@
       }
       .login-form h2 {
         margin-bottom: 20px;
-        font-size: 24px;
+        font-size: 40px;
         color: #333;
+        font-weight: lighter;
       }
       .login-form p {
         margin-bottom: 10px;
@@ -54,17 +60,29 @@
       .login-form a {
         color: #008cba;
         text-decoration: none;
+        font-size: 12px;
       }
       .login-form a:hover {
         text-decoration: underline;
       }
+      .login-form .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        text-align: center;
+      }
       .login-form button {
-        background-color: #008cba;
+        background-color: #4D869C;
         color: #fff;
         border: none;
-        padding: 10px 20px;
+        padding: 15px 30px; 
         border-radius: 5px;
         cursor: pointer;
+        display: block;
+        margin: 0 auto;
+        font-size: 18px;
+        width: 150px;
       }
       .login-form button:hover {
         background-color: #006f99;
@@ -73,25 +91,36 @@
         margin-top: 20px;
         text-align: center;
       }
+      .login-form .create-account p {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .login-form .create-account p::before,
+      .login-form .create-account p::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #676666;
+        margin: 0 10px;
+      }
+
     </style>
   </head>
   <body>
     <div class="login-container">
       <div class="login-image">
-        <img src="images/v78" alt="Father and child" />
+        <img src="images/v78_4.png" alt="Father and child" />
       </div>
       <div class="login-form">
         <h2>Login</h2>
         <p>Enter your details to login</p>
         <form action="login.php" method="post">
           <input type="text" name="email" placeholder="Email" required />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          <a href="Forgot.html">Forgot Password?</a><br /><br />
+          <input type="password" name="password" placeholder="Password" required />
+          <div class="center">
+            <a href="Forgot.html">Forgot Password?</a>
+          </div>
           <button type="submit">Login</button>
           <div class="create-account">
             <p>Or</p>
