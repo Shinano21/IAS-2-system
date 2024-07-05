@@ -11,38 +11,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = "";
     $dbname = "ias2";
 
-    // Establish database connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Validate and sanitize email input
-    if (!isset($_POST['email'])) {
-        die("Email not provided.");
-    }
-    
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
         die("Invalid email format");
     }
 
-    // Call the stored procedure to generate OTP and insert into otp table
-    $stmt = $conn->prepare("CALL generate_and_insert_otp(?)");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
-    }
-
-    // Bind parameters and execute stored procedure
+    $stmt = $conn->prepare("SELECT * FROM accounts WHERE email = ?");
     $stmt->bind_param("s", $email);
-    if (!$stmt->execute()) {
-        die("Execute failed: " . $stmt->error);
-    }
-    $stmt->close();
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Redirect to OTP entry page
-    header("Location: otp.html");
-    exit();
+    if ($result->num_rows > 0) {
+        $otp = generateOTP();
+
+        $stmt = $conn->prepare("INSERT INTO otp (email, otp_number, created_at) VALUES (?, ?, NOW())");
+        $stmt->bind_param("ss", $email, $otp);
+        $stmt->execute();
+        $stmt->close();
+
+        $_SESSION['otp_email'] = $email;
+
+        header("Location: otp.html?email=" . urlencode($email));
+        exit();
+    } else {
+        echo 'Email not found in our database.';
+    }
+
+    $conn->close();
 }
 
+function generateOTP() {
+    return mt_rand(100000, 999999);
+}
 ?>
