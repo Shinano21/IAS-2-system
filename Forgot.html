@@ -13,7 +13,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #e0e7e9;
+        background-image: linear-gradient(135deg, #c2ffd8 10%, #465efb 100%);
       }
       .forgot-password-container {
         display: flex;
@@ -23,6 +23,7 @@
         background-color: #ffffff;
         width: 80%;
         max-width: 600px;
+     
       }
       .forgot-password-image {
         width: 50%;
@@ -38,8 +39,9 @@
       }
       .forgot-password-form h2 {
         margin-bottom: 20px;
-        font-size: 24px;
+        font-size: 30px;
         color: #333;
+        font-weight: lighter;
       }
       .forgot-password-form p {
         margin-bottom: 10px;
@@ -51,9 +53,18 @@
         margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        margin-top: 20px;
+      }
+      .button-container {
+        display: flex;
+        justify-content: center;
       }
       .forgot-password-form button {
-        background-color: #008cba;
+        margin-top: 50px;
+        padding: 15px 30px; 
+        font-size: 18px;
+        width: 150px;
+        background-color: #4D869C;
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -70,6 +81,7 @@
       .forgot-password-form .back-to-login a {
         color: #008cba;
         text-decoration: none;
+        font-size: 12px;
       }
       .forgot-password-form .back-to-login a:hover {
         text-decoration: underline;
@@ -79,7 +91,7 @@
   <body>
     <div class="forgot-password-container">
       <div class="forgot-password-image">
-        <img src="path/to/your/image.png" alt="Laptop and phone" />
+        <img src="images/laptopAndPhone.jpg" alt="Laptop and phone" />
       </div>
       <div class="forgot-password-form">
         <h2>Forgot Password</h2>
@@ -89,7 +101,9 @@
         </p>
         <form action="generate_otp.php" method="post">
           <input type="email" name="email" placeholder="Email" required />
-          <button type="submit">Send</button>
+          <div class="button-container">
+            <button type="submit">Send</button>
+          </div>
           <div class="back-to-login">
             <p><a href="index.html">Back to login</a></p>
           </div>
