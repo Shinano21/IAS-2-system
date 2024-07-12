@@ -27,7 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         // Verify password
         if (password_verify($password, $row['password'])) {
-            echo "Login successful! Welcome " . $row['first_name'] . " " . $row['last_name'];
+            // Start session and store user data if needed
+            session_start();
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['first_name'] = $row['first_name'];
+            $_SESSION['last_name'] = $row['last_name'];
+            
+            // Redirect to landing page
+            header("Location: landing.php");
+            exit();
         } else {
             echo "Invalid password!";
         }
