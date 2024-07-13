@@ -170,6 +170,51 @@ $first_name = $_SESSION['first_name'];
         .popup.show {
             display: block;
         }
+
+        /* Confirmation Popup Styles */
+        .confirm-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1001;
+            width: 300px;
+            text-align: center;
+        }
+
+        .confirm-popup button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .confirm-popup .confirm {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .confirm-popup .cancel {
+            background-color: #f44336;
+            color: #fff;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -181,6 +226,7 @@ $first_name = $_SESSION['first_name'];
                 <li><a href="#">About</a></li>
                 <li><a href="#">Announcements</a></li>
                 <li><a href="#">Contact Us</a></li>
+                <li><a href="#" id="logoutButton">Log Out</a></li>
             </ul>
         </nav>
     </header>
@@ -273,21 +319,21 @@ $first_name = $_SESSION['first_name'];
         </p>
         <div class="contact-icons">
             <div class="contact-icon">
-                <img src="facebook.png" alt="Facebook" />
+                <img src="images/facebook.png" alt="Facebook" />
                 <p>
                     Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
                     adipisci aut mollitia excepturi! Qui
                 </p>
             </div>
             <div class="contact-icon">
-                <img src="email.png" alt="Email" />
+                <img src="images/gmail.png" alt="Email" />
                 <p>
                     Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
                     adipisci aut mollitia excepturi! Qui
                 </p>
             </div>
             <div class="contact-icon">
-                <img src="instagram.png" alt="Instagram" />
+                <img src="images/instagram.png" alt="Instagram" />
                 <p>
                     Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
                     adipisci aut mollitia excepturi! Qui
@@ -300,6 +346,14 @@ $first_name = $_SESSION['first_name'];
         <p>Welcome <?php echo $first_name; ?> to the Main page!</p>
     </div>
 
+    <!-- Confirmation Popup -->
+    <div class="confirm-popup" id="confirmPopup">
+        <p>Are you sure you want to log out?</p>
+        <button class="confirm" id="confirmLogout">Yes</button>
+        <button class="cancel" id="cancelLogout">No</button>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var popup = document.getElementById("popup");
@@ -309,7 +363,29 @@ $first_name = $_SESSION['first_name'];
             setTimeout(function() {
                 popup.classList.remove("show");
             }, 5000);
+
+            var logoutButton = document.getElementById("logoutButton");
+            var confirmPopup = document.getElementById("confirmPopup");
+            var overlay = document.getElementById("overlay");
+            var confirmLogout = document.getElementById("confirmLogout");
+            var cancelLogout = document.getElementById("cancelLogout");
+
+            logoutButton.addEventListener("click", function(event) {
+                event.preventDefault();
+                confirmPopup.style.display = "block";
+                overlay.style.display = "block";
+            });
+
+            confirmLogout.addEventListener("click", function() {
+                window.location.href = "index.html";
+            });
+
+            cancelLogout.addEventListener("click", function() {
+                confirmPopup.style.display = "none";
+                overlay.style.display = "none";
+            });
         });
     </script>
 </body>
 </html>
+
