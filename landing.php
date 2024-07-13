@@ -195,12 +195,12 @@ $first_name = $_SESSION['first_name'];
         }
 
         .confirm-popup .confirm {
-            background-color: #4caf50;
+            background-color: #80deea;
             color: #fff;
         }
 
         .confirm-popup .cancel {
-            background-color: #f44336;
+            background-color: whitesmoke;
             color: #fff;
         }
 
