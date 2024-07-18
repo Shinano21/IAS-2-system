@@ -7,11 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         html, body {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         .navbar-custom {
             background-color: #CDE8E5;
@@ -153,15 +155,15 @@
         <div class="container text-center mt-5 border border-secondary-subtle mb-5">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
-                    <img src="images/health.svg" alt="health" style="width:100px; height:auto;">
+                    <img src="images/health.svg" alt="health" style="width:100px; height:auto; padding:10px">
                     <p style="color:white">Health is a state of complete physical, mental, and social well-being, not merely the absence of disease or infirmity. It encompasses a balanced lifestyle that includes proper nutrition, regular physical activity, adequate rest, and mental and emotional stability. Maintaining good health is essential for a fulfilling and productive life.</p>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
-                    <img src="images/nurse.svg" alt="health" style="width:100px; height:auto;">
+                    <img src="images/nurse.svg" alt="health" style="width:100px; height:auto; padding:10px">
                     <p style="color:white">Health workers are dedicated professionals who provide essential medical and care services to individuals and communities. They include doctors, nurses, midwives, community health workers, and other healthcare practitioners who diagnose and treat illnesses, promote wellness, and support patients through preventive and curative measures. Their tireless efforts and expertise are vital in ensuring public health and improving the quality of life for people everywhere.</p>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
-                    <img src="images/immunize.svg" alt="health" style="width:100px; height:auto;">
+                    <img src="images/immunize.svg" alt="health" style="width:100px; height:auto; padding:10px">
                     <p style="color:white">Immunizations, or vaccinations, protect individuals from infectious diseases by stimulating the immune system to develop immunity. They introduce a harmless part of a pathogen, prompting the body to produce antibodies. Immunizations are crucial for preventing disease outbreaks and safeguarding public health.</p>
                 </div>
             </div>
@@ -244,7 +246,7 @@
     <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color:#CDE8E5">
                     <h5 class="modal-title" id="welcomeModalLabel">Welcome</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -252,60 +254,62 @@
                     <!-- Welcome message will be inserted here by PHP -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Enter</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Enter</button>
                 </div>
             </div>
         </div>
     </div>
 
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "ias2";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ias2";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-        // Check if user exists
-        $sql = "SELECT * FROM accounts WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    // Check if user exists
+    $sql = "SELECT * FROM accounts WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            // Verify password
-            if (password_verify($password, $row['password'])) {
-                echo '<script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                          var modalBody = document.querySelector("#welcomeModal .modal-body");
-                          modalBody.innerHTML = "Login successful! Welcome ' . $row['first_name'] . ' ' . $row['last_name'] . '";
-                          var welcomeModal = new bootstrap.Modal(document.getElementById("welcomeModal"));
-                          welcomeModal.show();
-                        });
-                      </script>';
-            } else {
-                echo "Invalid password!";
-            }
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Verify password
+        if (password_verify($password, $row['password'])) {
+            echo '<script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var modalBody = document.querySelector("#welcomeModal .modal-body");
+                        modalBody.innerHTML = \'<img src="images/welcome.png" alt="Welcome Logo" class="img-fluid mb-3" style="max-width: 400px;">\';
+                        modalBody.innerHTML += "Login successful! Welcome ' . $row['first_name'] . ' ' . $row['last_name'] . '";
+                        var welcomeModal = new bootstrap.Modal(document.getElementById("welcomeModal"));
+                        welcomeModal.show();
+                    });
+                  </script>';
         } else {
-            echo "No account found with that email!";
+            echo "Invalid password!";
         }
-        $stmt->close();
+    } else {
+        echo "No account found with that email!";
     }
+    $stmt->close();
+}
 
-    $conn->close();
-    ?>
+$conn->close();
+?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
