@@ -1,3 +1,60 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ias2";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the request method is POST
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    // Redirect to the home page or show an error message
+    header('Location: index.html');
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Check if user exists
+    $sql = "SELECT * FROM accounts WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Verify password
+        if (password_verify($password, $row['password'])) {
+            echo '<script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var modalBody = document.querySelector("#welcomeModal .modal-body");
+                        modalBody.innerHTML = \'<img src="images/welcome.png" alt="Welcome Logo" class="img-fluid mb-3" style="max-width: 400px;">\';
+                        modalBody.innerHTML += "Login successful! Welcome ' . $row['first_name'] . ' ' . $row['last_name'] . '";
+                        var welcomeModal = new bootstrap.Modal(document.getElementById("welcomeModal"));
+                        welcomeModal.show();
+                    });
+                  </script>';
+        } else {
+            echo "Invalid password!";
+        }
+    } else {
+        echo "No account found with that email!";
+    }
+    $stmt->close();
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +79,7 @@
             color: #000;
         }
         .nav-link:hover {
-            color: #000;
+            color: #fff;
         }
         .card {
             width: 100%;
@@ -259,57 +316,6 @@
             </div>
         </div>
     </div>
-
-    <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ias2";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Check if user exists
-    $sql = "SELECT * FROM accounts WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        // Verify password
-        if (password_verify($password, $row['password'])) {
-            echo '<script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var modalBody = document.querySelector("#welcomeModal .modal-body");
-                        modalBody.innerHTML = \'<img src="images/welcome.png" alt="Welcome Logo" class="img-fluid mb-3" style="max-width: 400px;">\';
-                        modalBody.innerHTML += "Login successful! Welcome ' . $row['first_name'] . ' ' . $row['last_name'] . '";
-                        var welcomeModal = new bootstrap.Modal(document.getElementById("welcomeModal"));
-                        welcomeModal.show();
-                    });
-                  </script>';
-        } else {
-            echo "Invalid password!";
-        }
-    } else {
-        echo "No account found with that email!";
-    }
-    $stmt->close();
-}
-
-$conn->close();
-?>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
