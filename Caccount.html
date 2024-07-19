@@ -106,26 +106,47 @@
       }
 
       .success-popup {
+        font-family: 'Poppins', sans-serif;
         display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: #f0fff0;
-        border: 1px solid #d4edda;
-        padding: 20px;
+        border: 8px solid #0aff44;
+        padding: 40px; /* Increased padding for larger size */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         text-align: center;
+        width: 30%; /* Added width for larger size */
+        max-width: 600px; /* Added max-width for responsiveness */
       }
 
       .success-popup h2 {
         color: #28a745;
+        font-size: 35px;
       }
 
       .success-popup a {
         color: #28a745;
         text-decoration: none;
+      }
+      .success-popup p {
+        font-size: 20px;
+        color:#333;
+      }
+      .success-popup button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 5px;
       }
 
       .show-password {
@@ -133,6 +154,7 @@
         align-items: center;
         margin-bottom: 20px;
       }
+
       .show-password label {
         font-size: 12px; /* Adjust the font size here */
         font-weight: lighter; /* You can also adjust the font weight */
@@ -140,6 +162,15 @@
 
       .show-password input {
         margin-left: 10px;
+      }
+      input[type="password"]::-ms-reveal, 
+      input[type="password"]::-ms-clear {
+        display: none;
+      }
+
+      input[type="password"]::-webkit-contacts-auto-fill-button,
+      input[type="password"]::-webkit-credentials-auto-fill-button {
+        display: none !important;
       }
     </style>
     <script>
@@ -221,9 +252,10 @@
     </div>
 
     <div id="success-popup" class="success-popup">
+      <img src="images/happy.png" alt="Success Icon" /> 
       <h2>Success!</h2>
       <p>Your account has been successfully created.</p>
-      <a href="index.html">Back to login</a>
+      <button onclick="window.location.href='index.html'">Back to Login</button>
     </div>
   </body>
 </html>

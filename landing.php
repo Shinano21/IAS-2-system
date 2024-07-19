@@ -120,9 +120,9 @@ $lastName = $_SESSION['last_name'];
                     <a class="nav-link" href="#">
                         <img src="images/message.svg" alt="User Icon" width="30" height="24" class="d-inline-block align-text-top">
                     </a>
-                    <a class="nav-link" href="index.html">
-                        <img src="images/logout.svg" alt="Logout Icon" width="30" height="24" class="d-inline-block align-text-top">
-                    </a>
+                    <a class="nav-link" href="javascript:void(0);" onclick="showLogoutModal()">
+              <img src="images/logout.svg" alt="Logout Icon" width="30" height="24" class="d-inline-block align-text-top">
+            </a>
                 </div>
             </div>
         </div>
@@ -252,6 +252,17 @@ $lastName = $_SESSION['last_name'];
     </div>
 </div>
 
+<!-- Logout Confirmation Modal -->
+<div id="logoutModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1050; display: flex; align-items: center; justify-content: center;">
+  <div class="modal-content" style="padding: 20px; border: 2px solid #7AB2B2; border-radius: 10px; text-align: center; background-color: #f8f9fa; max-width: 400px; width: 100%;">
+    <h3 style="margin-bottom: 15px;">Confirm Logout</h3>
+    <p>Are you sure you want to log out?</p>
+    <button onclick="window.location.href='index.html'" style="background-color: #4D869C; color: white; border: none; padding: 10px 20px;  border-radius: 5px; cursor: pointer;">Yes</button>
+    <button onclick="hideLogoutModal()" style="background-color: #CDE8E5; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top:10px;">No</button>
+  </div>
+</div>
+
+    
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -277,11 +288,26 @@ $lastName = $_SESSION['last_name'];
     </div>
 </div>
 
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
         });
+
+        function showLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'flex';
+  }
+
+  function hideLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'none';
+  }
+
+  // Ensure the modal is hidden on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    hideLogoutModal();
+  });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
