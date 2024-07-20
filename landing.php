@@ -128,7 +128,7 @@ $lastName = $_SESSION['last_name'];
         </div>
     </nav>
 
-    <div class="container text-center container-increased-height">
+    <div class="container text-center container-increased-height" >
         <div class="row mt-5">
             <div class="col-md-6 d-flex justify-content-center align-items-center">
                 <div class="card p-3">
@@ -183,7 +183,7 @@ $lastName = $_SESSION['last_name'];
     </div>
 
 
-<div class="container my-5">
+<div class="container my-5" style="overflow-x:hidden">
     <div class="row announcement-card">
         <div class="col-md-4"  data-aos="slide-right">
             <img src="images/apple.jpg" alt="An apple a day" class="announcement-img">
