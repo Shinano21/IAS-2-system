@@ -120,7 +120,7 @@ $lastName = $_SESSION['last_name'];
                     <a class="nav-link" href="#">
                         <img src="images/message.svg" alt="User Icon" width="30" height="24" class="d-inline-block align-text-top">
                     </a>
-                    <a class="nav-link" href="javascript:void(0);" onclick="showLogoutModal()">
+                    <a class="nav-link" href="logout.php">
                         <img src="images/logout.svg" alt="Logout Icon" width="30" height="24" class="d-inline-block align-text-top">
                     </a>
                 </div>
@@ -128,7 +128,7 @@ $lastName = $_SESSION['last_name'];
         </div>
     </nav>
 
-    <div class="container text-center container-increased-height">
+    <div class="container text-center container-increased-height" >
         <div class="row mt-5">
             <div class="col-md-6 d-flex justify-content-center align-items-center">
                 <div class="card p-3">
@@ -168,77 +168,51 @@ $lastName = $_SESSION['last_name'];
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
                     <img src="images/health.svg" alt="health" style="width:100px; height:auto; padding:10px">
-                    <p style="color:white">Health is a state of complete physical, mental, and social well-being, not merely the absence of disease or infirmity. It encompasses a balanced lifestyle that includes proper nutrition, regular physical activity, adequate rest, and emotional well-being.</p>
+                    <p style="color:white">Health is a state of complete physical, mental, and social well-being, not merely the absence of disease or infirmity. It encompasses a balanced lifestyle that includes proper nutrition, regular physical activity, adequate rest, and mental and emotional stability. Maintaining good health is essential for a fulfilling and productive life.</p>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
-                    <img src="images/news.svg" alt="news" style="width:100px; height:auto; padding:10px">
-                    <p style="color:white">TechCare is dedicated to keeping barangay residents informed with the latest news and updates on health, wellness, and community events. Stay connected with us for valuable insights, tips, and stories that matter to you and your loved ones.</p>
+                    <img src="images/nurse.svg" alt="health" style="width:100px; height:auto; padding:10px">
+                    <p style="color:white">Health workers are dedicated professionals who provide essential medical and care services to individuals and communities. They include doctors, nurses, midwives, paramedics, and other healthcare providers. Their roles encompass diagnosing and treating illnesses, promoting health education, and ensuring the well-being of patients through compassionate and skilled care.</p>
                 </div>
-                <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
-                    <img src="images/community.svg" alt="community" style="width:100px; height:auto; padding:10px">
-                    <p style="color:white">At TechCare, we believe in the power of community and the importance of fostering strong connections among residents. Our platform encourages engagement, support, and collaboration to build a healthier and more united barangay, where everyone can thrive.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid contact-section">
-        <h2>Contact Us</h2>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-12 contact-item">
-                <div class="contact-icon">
-                    <i class="bi bi-geo-alt"></i>
-                </div>
-                <h4>Address</h4>
-                <p>123 Barangay Road, City, Province</p>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 contact-item">
-                <div class="contact-icon">
-                    <i class="bi bi-envelope"></i>
-                </div>
-                <h4>Email</h4>
-                <p>info@techcare.com</p>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 contact-item">
-                <div class="contact-icon">
-                    <i class="bi bi-phone"></i>
-                </div>
-                <h4>Phone</h4>
-                <p>(123) 456-7890</p>
-            </div>
-        </div>
-    </div>
-
-    <!--Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to log out?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <a href="logout.php" class="btn btn-primary">Logout</a>
+                <div class="col-lg-4 col-md-12 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
+                    <img src="images/community.svg" alt="health" style="width:100px; height:auto; padding:10px">
+                    <p style="color:white">A barangay is the smallest administrative division in the Philippines, serving as a local community or neighborhood. Barangays play a crucial role in local governance, acting as the primary unit for implementing government policies, programs, and services. They are led by elected officials who work to address the needs and concerns of their residents and promote community development.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        function showLogoutModal() {
-            var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'), {
-                backdrop: 'static'
-            });
-            logoutModal.show();
-        }
-    </script>
+    <div class="contact-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance, feel free to contact us!</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="bi bi-telephone contact-icon"></i>
+                        <h5>Phone</h5>
+                        <p>+1 234 567 890</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="bi bi-envelope contact-icon"></i>
+                        <h5>Email</h5>
+                        <p>info@techcare.com</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-item">
+                        <i class="bi bi-geo-alt contact-icon"></i>
+                        <h5>Address</h5>
+                        <p>123 Main Street, Anytown, USA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzBM1HBI6KtY5E7I5C/nj2NfIRmUfc+RAeF4iMCw9xof" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-rbNODz3aJhKTBE9p1zKvU7lA3BgRKLmjjLkXHviO45gVJTHfH3jzRTOvxVi6d7z0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-9NDikOS4oU68BZopXNzCTSlhe9qlIt0J/WDXh1KJC9bn/dvcGTLWWtV5zH9yYYVV" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
