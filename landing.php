@@ -120,7 +120,7 @@ $lastName = $_SESSION['last_name'];
                     <a class="nav-link" href="#">
                         <img src="images/message.svg" alt="User Icon" width="30" height="24" class="d-inline-block align-text-top">
                     </a>
-                    <a class="nav-link" href="javascript:void(0);" onclick="showLogoutModal()">
+                    <a class="nav-link" href="#" onclick="showLogoutModal()">
               <img src="images/logout.svg" alt="Logout Icon" width="30" height="24" class="d-inline-block align-text-top">
             </a>
                 </div>
@@ -158,7 +158,7 @@ $lastName = $_SESSION['last_name'];
         </div>
     </div>
 
-    <div class="container-fluid border border-primary mt-3" style="background-color: #4D869C;">
+    <div class="container-fluid border border-primary mt-3" style="background-color: #4D869C;" id="Announcement">
         <h1 class="mt-3" style="color:white; display:flex; justify-content:center">Announcement</h1>
         <div class="container text-center" style="color:white">
             <p>We are excited to announce that our barangay will be hosting a community health fair this weekend, aimed at promoting wellness and providing essential health services to all residents. With the support of our dedicated barangay health workers, the event will feature free medical check-ups, vaccination drives, nutritional counseling, and health education workshops. We encourage everyone to participate and take advantage of these valuable resources to improve their well-being. Join us at the barangay hall from 8 AM to 5 PM on Saturday and Sunday for a healthier, happier community!</p>
@@ -257,7 +257,7 @@ $lastName = $_SESSION['last_name'];
   <div class="modal-content" style="padding: 20px; border: 2px solid #7AB2B2; border-radius: 10px; text-align: center; background-color: #f8f9fa; max-width: 400px; width: 100%;">
     <h3 style="margin-bottom: 15px;">Confirm Logout</h3>
     <p>Are you sure you want to log out?</p>
-    <button onclick="window.location.href='index.html'" style="background-color: #4D869C; color: white; border: none; padding: 10px 20px;  border-radius: 5px; cursor: pointer;">Yes</button>
+    <button onclick="window.location.href='logout.php'" style="background-color: #4D869C; color: white; border: none; padding: 10px 20px;  border-radius: 5px; cursor: pointer;">Yes</button>
     <button onclick="hideLogoutModal()" style="background-color: #CDE8E5; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top:10px;">No</button>
   </div>
 </div>
