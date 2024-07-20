@@ -6,6 +6,9 @@ header("Content-Security-Policy: default-src 'self'");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
+header("Content-Type: application/json");
+
+$response = ["success" => false, "message" => "An error occurred."];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
@@ -15,7 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        $response["message"] = "Connection failed: " . $conn->connect_error;
+        echo json_encode($response);
+        exit();
     }
 
     if (isset($_SESSION['otp_email'])) {
@@ -29,16 +34,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            $_SESSION['reset_email'] = $email; // Set session variable for reset email
-            header("Location: new_password.html");
-            exit();
+            $_SESSION['reset_email'] = $email;
+            $response["success"] = true;
+            $response["message"] = "OTP verified.";
         } else {
-            echo 'Invalid OTP code or expired. Please try again.';
+            $response["message"] = "Invalid OTP code. Please try again.";
         }
     } else {
-        echo 'Session expired or email not set.';
+        $response["message"] = "Session expired or email not set.";
     }
 
     $conn->close();
+} else {
+    $response["message"] = "Invalid request method.";
 }
+
+echo json_encode($response);
 ?>

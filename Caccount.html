@@ -257,5 +257,52 @@
       <p>Your account has been successfully created.</p>
       <button onclick="window.location.href='index.html'">Back to Login</button>
     </div>
+    <script>
+      function validateForm() {
+        const password = document.forms["createAccount"]["password"].value;
+        const email = document.forms["createAccount"]["email"].value;
+    
+        // Updated email regex to allow only @gmail.com or @yahoo.com
+        const emailRegex = /^[^\s@]+@(gmail\.com|yahoo\.com)$/;
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+        const errorMessage = document.getElementById("error-message");
+    
+        if (!emailRegex.test(email)) {
+          errorMessage.innerText = "Email must be a valid Gmail or Yahoo address.";
+          return false;
+        }
+    
+        if (!passwordRegex.test(password)) {
+          errorMessage.innerText =
+            "Password should be at least 8 characters and contain an uppercase letter, a lowercase letter, a number, and a special character.";
+          return false;
+        }
+    
+        return true;
+      }
+    
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+        } else {
+          passwordField.type = "password";
+        }
+      }
+    
+      window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get("message");
+    
+        if (message === "success") {
+          document.getElementById("success-popup").style.display = "block";
+        } else if (message) {
+          document.getElementById("error-message").innerText = message;
+        }
+      };
+    </script>
+    
   </body>
 </html>

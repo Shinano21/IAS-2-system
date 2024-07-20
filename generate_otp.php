@@ -13,12 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        header("Location: Forgot.html?error=" . urlencode("Connection failed: " . $conn->connect_error));
+        exit();
     }
 
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-        die("Invalid email format");
+        header("Location: Forgot.html?error=" . urlencode("Invalid email format"));
+        exit();
     }
 
     $stmt = $conn->prepare("SELECT * FROM accounts WHERE email = ?");
@@ -39,7 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: otp.html?email=" . urlencode($email));
         exit();
     } else {
-        echo 'Email not found in our database.';
+        header("Location: Forgot.html?error=" . urlencode("Email not found in our database."));
+        exit();
     }
 
     $conn->close();

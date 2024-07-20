@@ -23,7 +23,6 @@
         background-color: #ffffff;
         width: 80%;
         max-width: 600px;
-     
       }
       .forgot-password-image {
         width: 50%;
@@ -86,7 +85,25 @@
       .forgot-password-form .back-to-login a:hover {
         text-decoration: underline;
       }
+      .error-message {
+        color: red;
+        margin-top: 10px;
+        font-size: 13px;
+        margin-left: 5px;
+      }
     </style>
+    <script>
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get('error');
+        if (error) {
+          const errorMessage = document.getElementById('error-message');
+          errorMessage.textContent = decodeURIComponent(error);
+          errorMessage.style.display = 'block';
+        }
+      }
+      window.onload = getQueryParams;
+    </script>
   </head>
   <body>
     <div class="forgot-password-container">
@@ -101,6 +118,7 @@
         </p>
         <form action="generate_otp.php" method="post">
           <input type="email" name="email" placeholder="Email" required />
+          <div id="error-message" class="error-message" style="display: none;"></div>
           <div class="button-container">
             <button type="submit">Send</button>
           </div>
