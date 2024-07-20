@@ -1,391 +1,247 @@
 <?php
-session_start();
-if (!isset($_SESSION['first_name'])) {
-    // Redirect to login page if session variable is not set
-    header("Location: login.html");
+session_start(); // Start the session
+
+// Redirect to login page if session variables are not set
+if (!isset($_SESSION['first_name']) || !isset($_SESSION['last_name'])) {
+    header("Location: index.html");
     exit();
 }
-$first_name = $_SESSION['first_name'];
+
+$firstName = $_SESSION['first_name'];
+$lastName = $_SESSION['last_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TechCare</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        header {
-            background-color: #e0f7fa;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
-
-        header .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
-
-        header nav ul li {
-            margin: 0;
-        }
-
-        header nav ul li a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .hero {
-            display: flex;
-            background-color: #80deea;
-            padding: 20px;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 36px;
-        }
-
-        .hero-text p {
-            font-size: 18px;
-        }
-
-        .hero-image img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-        }
-
-        .announcements {
-            text-align: center;
-            padding: 20px;
-            background-color: #b2ebf2;
-        }
-
-        .announcements h2 {
-            font-size: 28px;
-        }
-
-        .announcements .icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding-top: 20px;
-        }
-
-        .announcements .icon {
-            text-align: center;
-            width: 150px;
-        }
-
-        .announcements .icon img {
-            width: 50px;
-            height: 50px;
-        }
-
-        .articles {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 20px;
-            background-color: #ffffff;
-        }
-
-        .articles article {
-            width: 30%;
-            background-color: #f0f0f0;
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .articles article h3 {
-            font-size: 20px;
-        }
-
-        .articles article img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #e0f7fa;
-        }
-
-        footer h2 {
-            font-size: 28px;
-        }
-
-        footer .contact-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding-top: 20px;
-        }
-
-        footer .contact-icon {
-            text-align: center;
-            width: 150px;
-        }
-
-        footer .contact-icon img {
-            width: 50px;
-            height: 50px;
-        }
-
-        /* Popup Notification Styles */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            z-index: 1000;
-        }
-
-        .popup.show {
-            display: block;
-        }
-
-        /* Confirmation Popup Styles */
-        .confirm-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            z-index: 1001;
-            width: 300px;
-            text-align: center;
-        }
-
-        .confirm-popup button {
-            margin: 5px;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .confirm-popup .confirm {
-            background-color: #80deea;
-            color: #fff;
-        }
-
-        .confirm-popup .cancel {
-            background-color: whitesmoke;
-            color: #fff;
-        }
-
-        /* Overlay */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+        html, body {
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar-custom {
+            background-color: #CDE8E5;
+        }
+        .nav-link {
+            color: #000;
+        }
+        .nav-link:hover {
+            color: #fff;
+        }
+        .card {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            background: #e0e0e0;
+            box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+        }
+        .container-increased-height {
+            height: 600px; /* Adjust this value to increase or decrease the height */
+            padding: 50px;
+            margin-bottom:70px;
+        }
+        @media (max-width: 768px) {
+            .container-increased-height {
+                height: auto; /* Auto height for smaller screens */
+                padding-bottom: 20px; /* Add some bottom padding */
+            }
+            .carousel-item img {
+                object-fit: cover; /* Ensure images cover the fixed height */
+            }
+        }
+        .announcement-card {
+            margin-bottom: 30px;
+        }
+        .announcement-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .announcement-content {
+            padding-left: 20px;
+        }
+        .announcement-header {
+            font-weight: bold;
+            font-size: 2.5rem;
+        }
+        .announcement-date {
+            color: grey;
+            font-size: 0.875rem;
+            margin-bottom:50px;
+        }
+        .contact-section {
+            background-color: #7AB2B2;
+            color: black;
+            padding: 60px;
+            text-align: center;
+        }
+        .contact-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .contact-item {
+            border: 1px solid #78A6A8;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .contact-item:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">TechCare</div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Announcements</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#" id="logoutButton">Log Out</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="hero-text">
-            <h1>TechCare</h1>
-            <p>Lorem ipsum dolor sit amet. Quo possimus doloribus non</p>
-            <p>
-                Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi adipisci
-                aut mollitia excepturi!
-            </p>
-        </div>
-        <div class="hero-image">
-            <img src="hero.jpg" alt="Elderly couple on bench" />
-        </div>
-    </section>
-
-    <section class="announcements">
-        <h2>Announcement</h2>
-        <p>
-            Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi adipisci
-            aut mollitia excepturi!
-        </p>
-        <div class="icons">
-            <div class="icon">
-                <img src="icon1.png" alt="" />
-                <p>
-                    Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
-                    adipisci aut mollitia excepturi! Qui
-                </p>
-            </div>
-            <div class="icon">
-                <img src="icon2.png" alt="" />
-                <p>
-                    Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
-                    adipisci aut mollitia excepturi! Qui
-                </p>
-            </div>
-            <div class="icon">
-                <img src="icon3.png" alt="" />
-                <p>
-                    Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
-                    adipisci aut mollitia excepturi! Qui
-                </p>
+  <!--Navbar-->
+    <nav class="navbar navbar-expand-lg p-3 navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="images/message.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                TechCare
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav me-auto">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#">Announcement</a>
+                    <a class="nav-link" href="#">Contact Us</a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#">
+                        <img src="images/message.svg" alt="User Icon" width="30" height="24" class="d-inline-block align-text-top">
+                    </a>
+                    <a class="nav-link" href="javascript:void(0);" onclick="showLogoutModal()">
+                        <img src="images/logout.svg" alt="Logout Icon" width="30" height="24" class="d-inline-block align-text-top">
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <section class="articles">
-        <article>
-            <h3>An apple a day, keeps the doctor away</h3>
-            <p>2024-05-27, 10:00 am</p>
-            <img src="apple.jpg" alt="Doctor with apple" />
-            <p>
-                Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi adipisci
-                aut mollitia excepturi! Qui doloribus molestias qui debitis
-                perspiciatis ab sequi nostrum eos iure iste sed doloremque maiores quo
-                quia re
-            </p>
-        </article>
-        <article>
-            <h3>Drink Water Everyday</h3>
-            <p>2024-05-27, 10:00 am</p>
-            <img src="water.jpg" alt="Man with water bottle" />
-            <p>
-                Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi adipisci
-                aut mollitia excepturi! Qui doloribus molestias qui debitis
-                perspiciatis ab sequi nostrum eos dasdakdsjdsk jfdjfkld jkdjfkjdkf
-            </p>
-        </article>
-        <article>
-            <h3>Free Vaccine for the elderly</h3>
-            <p>2024-05-27, 10:00 am</p>
-            <img src="vaccine.jpg" alt="Elderly person" />
-            <p>
-                Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi adipisci
-                aut mollitia excepturi! Qui doloribus molestias qui debitis
-                perspiciatis ab sequi nostrum eos iure iste sed doloremque maiores quo
-                quia re
-            </p>
-        </article>
-    </section>
+    <div class="container text-center container-increased-height">
+        <div class="row mt-5">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <div class="card p-3">
+                    <h1>TechCare</h1>
+                    <h5 style="color:grey;">"Empowering barangay residents through accessible health support and community connections."</h5>
+                    <p class="p-3">Welcome to TechCare, a dedicated platform aimed at empowering the residents of our barangay through innovative health solutions and community support. With the invaluable assistance of barangay health workers, TechCare bridges the gap between accessible healthcare and the local community, ensuring that everyone has the resources and information they need for a healthier life. Together, we strive to create a healthier, more connected barangay where every resident can thrive.</p>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center align-items-center mt-3 mt-md-0">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="images/hands.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/cuteHeart.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/wheelChair.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/whiteHold.jpg" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <footer>
+    <div class="container-fluid border border-primary mt-3" style="background-color: #4D869C;">
+        <h1 class="mt-3" style="color:white; display:flex; justify-content:center">Announcement</h1>
+        <div class="container text-center" style="color:white">
+            <p>We are excited to announce that our barangay will be hosting a community health fair this weekend, aimed at promoting wellness and providing essential health services to all residents. With the support of our dedicated barangay health workers, the event will feature free medical check-ups, vaccination drives, nutritional counseling, and health education workshops. We encourage everyone to participate and take advantage of these valuable resources to improve their well-being. Join us at the barangay hall from 8 AM to 5 PM on Saturday and Sunday for a healthier, happier community!</p>
+        </div>
+
+        <div class="container text-center mt-5 border border-secondary-subtle mb-5">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
+                    <img src="images/health.svg" alt="health" style="width:100px; height:auto; padding:10px">
+                    <p style="color:white">Health is a state of complete physical, mental, and social well-being, not merely the absence of disease or infirmity. It encompasses a balanced lifestyle that includes proper nutrition, regular physical activity, adequate rest, and emotional well-being.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
+                    <img src="images/news.svg" alt="news" style="width:100px; height:auto; padding:10px">
+                    <p style="color:white">TechCare is dedicated to keeping barangay residents informed with the latest news and updates on health, wellness, and community events. Stay connected with us for valuable insights, tips, and stories that matter to you and your loved ones.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 border border-secondary-subtle d-flex flex-column align-items-center">
+                    <img src="images/community.svg" alt="community" style="width:100px; height:auto; padding:10px">
+                    <p style="color:white">At TechCare, we believe in the power of community and the importance of fostering strong connections among residents. Our platform encourages engagement, support, and collaboration to build a healthier and more united barangay, where everyone can thrive.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid contact-section">
         <h2>Contact Us</h2>
-        <p>
-            Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi adipisci
-            aut mollitia excepturi!
-        </p>
-        <div class="contact-icons">
-            <div class="contact-icon">
-                <img src="images/facebook.png" alt="Facebook" />
-                <p>
-                    Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
-                    adipisci aut mollitia excepturi! Qui
-                </p>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12 contact-item">
+                <div class="contact-icon">
+                    <i class="bi bi-geo-alt"></i>
+                </div>
+                <h4>Address</h4>
+                <p>123 Barangay Road, City, Province</p>
             </div>
-            <div class="contact-icon">
-                <img src="images/gmail.png" alt="Email" />
-                <p>
-                    Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
-                    adipisci aut mollitia excepturi! Qui
-                </p>
+            <div class="col-lg-4 col-md-6 col-12 contact-item">
+                <div class="contact-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+                <h4>Email</h4>
+                <p>info@techcare.com</p>
             </div>
-            <div class="contact-icon">
-                <img src="images/instagram.png" alt="Instagram" />
-                <p>
-                    Lorem ipsum dolor sit amet. Quo possimus doloribus non sequi
-                    adipisci aut mollitia excepturi! Qui
-                </p>
+            <div class="col-lg-4 col-md-6 col-12 contact-item">
+                <div class="contact-icon">
+                    <i class="bi bi-phone"></i>
+                </div>
+                <h4>Phone</h4>
+                <p>(123) 456-7890</p>
             </div>
         </div>
-    </footer>
-
-    <div class="popup" id="popup">
-        <p>Welcome <?php echo $first_name; ?> to the Main page!</p>
     </div>
 
-    <!-- Confirmation Popup -->
-    <div class="confirm-popup" id="confirmPopup">
-        <p>Are you sure you want to log out?</p>
-        <button class="confirm" id="confirmLogout">Yes</button>
-        <button class="cancel" id="cancelLogout">No</button>
+    <!--Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to log out?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="logout.php" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="overlay" id="overlay"></div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var popup = document.getElementById("popup");
-            popup.classList.add("show");
-
-            // Hide the popup after 3 seconds
-            setTimeout(function() {
-                popup.classList.remove("show");
-            }, 5000);
-
-            var logoutButton = document.getElementById("logoutButton");
-            var confirmPopup = document.getElementById("confirmPopup");
-            var overlay = document.getElementById("overlay");
-            var confirmLogout = document.getElementById("confirmLogout");
-            var cancelLogout = document.getElementById("cancelLogout");
-
-            logoutButton.addEventListener("click", function(event) {
-                event.preventDefault();
-                confirmPopup.style.display = "block";
-                overlay.style.display = "block";
+        function showLogoutModal() {
+            var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'), {
+                backdrop: 'static'
             });
+            logoutModal.show();
+        }
+    </script>
 
-            confirmLogout.addEventListener("click", function() {
-                window.location.href = "index.html";
-            });
-
-            cancelLogout.addEventListener("click", function() {
-                confirmPopup.style.display = "none";
-                overlay.style.display = "none";
-            });
-        });
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzBM1HBI6KtY5E7I5C/nj2NfIRmUfc+RAeF4iMCw9xof" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-rbNODz3aJhKTBE9p1zKvU7lA3BgRKLmjjLkXHviO45gVJTHfH3jzRTOvxVi6d7z0" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
 </body>
 </html>
-
