@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirect based on user_type
             if ($row['user_type'] == 'admin' || $row['user_type'] == 'bhw') {
-                header("Location: dashboard.html");
+                header("Location: dashboard.php");
             } else {
                 header("Location: landing.php");
             }
