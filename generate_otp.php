@@ -5,6 +5,14 @@ header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 
+// Include PHPMailer classes
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
     $username = "root";
@@ -38,8 +46,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['otp_email'] = $email;
 
-        header("Location: otp.html?email=" . urlencode($email));
-        exit();
+        // Send OTP via email
+        if (sendOTPEmail($email, $otp)) {
+            header("Location: otp.html?email=" . urlencode($email));
+            exit();
+        } else {
+            header("Location: Forgot.html?error=" . urlencode("Failed to send OTP email."));
+            exit();
+        }
     } else {
         header("Location: Forgot.html?error=" . urlencode("Email not found in our database."));
         exit();
@@ -50,5 +64,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function generateOTP() {
     return mt_rand(100000, 999999);
+}
+
+function sendOTPEmail($email, $otp) {
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'janjan9925@gmail.com';                 //SMTP username
+        $mail->Password   = 'zmzjauxlivhjqmrm';                     //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Port       = 465;                                    //TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('janjan9925@gmail.com', 'TechCare');
+        $mail->addAddress($email);                                  //Add a recipient
+
+        //Content
+        $mail->isHTML(true);                                        //Set email format to HTML
+        $mail->Subject = 'Your OTP Code';
+        $mail->Body    = "Your OTP code is <b>$otp</b>";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
 }
 ?>
