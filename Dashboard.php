@@ -3,7 +3,7 @@ session_start();
 
 // Check if the user is logged in, if not redirect to login page
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: index.html');
     exit;
 }
 
@@ -12,7 +12,6 @@ header('Cache-Control: no-cache, no-store, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
 ?>
-
 
 <!doctype html>
 <html lang="en">
@@ -26,7 +25,6 @@ header('Expires: 0');
       body {
         font-family: Arial, sans-serif;
         background-image: linear-gradient( 135deg, #C2FFD8 10%, #465EFB 100%);
-
       }
       .sidebar {
         height: 100vh;
@@ -73,7 +71,19 @@ header('Expires: 0');
       </div>
       <a href="#"><i class="bi bi-speedometer2"></i>Dashboard</a>
       <a href="#"><i class="bi bi-people"></i>Residents</a>
-      <a href="#"><i class="bi bi-wrench"></i>Services</a>
+      
+      <!-- Services Dropdown -->
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-wrench"></i>Services
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+          <li><a class="dropdown-item" href="#">Create Account</a></li>
+          <li><a class="dropdown-item" href="#">Nutrition</a></li>
+          <li><a class="dropdown-item" href="#">More</a></li>
+        </ul>
+      </div>
+      
       <a href="#"><i class="bi bi-bar-chart-line"></i>Visualization</a>
       <a href="#"><i class="bi bi-file-earmark-text"></i>Reports</a>
       <a href="#"><i class="bi bi-globe"></i>Website</a>
@@ -235,32 +245,30 @@ header('Expires: 0');
     </div>
 
     <!-- Logout Confirmation Modal -->
-<div id="logoutModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1050; display: flex; align-items: center; justify-content: center;">
-  <div class="modal-content" style="padding: 20px; border: 2px solid #7AB2B2; border-radius: 10px; text-align: center; background-color: #f8f9fa; max-width: 400px; width: 100%;">
-    <h3 style="margin-bottom: 15px;">Confirm Logout</h3>
-    <p>Are you sure you want to log out?</p>
-    <button onclick="window.location.href='logout.php'" style="background-color: #4D869C; color: white; border: none; padding: 10px 20px;  border-radius: 5px; cursor: pointer;">Yes</button>
-    <button onclick="hideLogoutModal()" style="background-color: #CDE8E5; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top:10px;">No</button>
-  </div>
-</div>
+    <div id="logoutModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1050; display: flex; align-items: center; justify-content: center;">
+      <div class="modal-content" style="padding: 20px; border: 2px solid #7AB2B2; border-radius: 10px; text-align: center; background-color: #f8f9fa; max-width: 400px; width: 100%;">
+        <h3 style="margin-bottom: 15px;">Confirm Logout</h3>
+        <p>Are you sure you want to log out?</p>
+        <button onclick="window.location.href='logout.php'" style="background-color: #4D869C; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Yes</button>
+        <button onclick="hideLogoutModal()" style="background-color: #CDE8E5; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top:10px;">No</button>
+      </div>
+    </div>
 
+    <script>
+      // Ensure the modal is hidden on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        hideLogoutModal();
+      });
 
-<script>
-    // Ensure the modal is hidden on page load
-    document.addEventListener('DOMContentLoaded', function() {
-    hideLogoutModal();
-  });
-  function showLogoutModal() {
-    document.getElementById('logoutModal').style.display = 'flex';
-  }
+      function showLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'flex';
+      }
 
-  function hideLogoutModal() {
-    document.getElementById('logoutModal').style.display = 'none';
-  }
-</script>
-
+      function hideLogoutModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+      }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
-
