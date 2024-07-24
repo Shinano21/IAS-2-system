@@ -35,9 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['first_name'] = $row['first_name'];
             $_SESSION['last_name'] = $row['last_name'];
-            
-            // Redirect to landing page
-            header("Location: landing.php");
+            $_SESSION['user_type'] = $row['user_type'];
+
+            // Redirect based on user_type
+            if ($row['user_type'] == 'admin' || $row['user_type'] == 'bhw') {
+                header("Location: dashboard.html");
+            } else {
+                header("Location: landing.php");
+            }
             exit();
         } else {
             $error_message = "Invalid password!";
@@ -57,15 +62,13 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - TechCare</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<style>
- 
-    .modal-body{
-        background-color:pink;
-        border: 5px solid white; /* White border */
-        border-radius: 1rem; /* Rounded corners */
-    }
-
-</style>
+    <style>
+        .modal-body{
+            background-color:pink;
+            border: 5px solid white; /* White border */
+            border-radius: 1rem; /* Rounded corners */
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">

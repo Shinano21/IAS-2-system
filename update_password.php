@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("UPDATE accounts SET password = ? WHERE email = ?");
         $stmt->bind_param("ss", $hashed_password, $email);
         if ($stmt->execute()) {
-            echo 'Password updated successfully.';
+            echo 'Password updated successfully.You can now <a href="index.html">login</a>.';
         } else {
             echo 'Error updating password: ' . $conn->error;
         }

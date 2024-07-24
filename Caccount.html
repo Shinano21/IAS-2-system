@@ -106,7 +106,7 @@
       }
 
       .success-popup {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         display: none;
         position: fixed;
         top: 50%;
@@ -133,7 +133,7 @@
       }
       .success-popup p {
         font-size: 20px;
-        color:#333;
+        color: #333;
       }
       .success-popup button {
         background-color: #28a745;
@@ -163,7 +163,7 @@
       .show-password input {
         margin-left: 10px;
       }
-      input[type="password"]::-ms-reveal, 
+      input[type="password"]::-ms-reveal,
       input[type="password"]::-ms-clear {
         display: none;
       }
@@ -232,14 +232,34 @@
           method="post"
           onsubmit="return validateForm()"
         >
-          <input type="text" name="first_name" placeholder="First Name" required />
-          <input type="text" name="last_name" placeholder="Last Name" required />
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            required
+          />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            required
+          />
           <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="password" id="password" placeholder="Password" required />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
           <div id="error-message" class="error-message"></div>
           <div class="show-password">
             <label for="show-password">Show Password</label>
-            <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()" />
+            <input
+              type="checkbox"
+              id="show-password"
+              onclick="togglePasswordVisibility()"
+            />
           </div>
           <div class="button-container">
             <button type="submit">Create Account</button>
@@ -252,7 +272,7 @@
     </div>
 
     <div id="success-popup" class="success-popup">
-      <img src="images/happy.png" alt="Success Icon" /> 
+      <img src="images/happy.png" alt="Success Icon" />
       <h2>Success!</h2>
       <p>Your account has been successfully created.</p>
       <button onclick="window.location.href='index.html'">Back to Login</button>
@@ -261,28 +281,29 @@
       function validateForm() {
         const password = document.forms["createAccount"]["password"].value;
         const email = document.forms["createAccount"]["email"].value;
-    
+
         // Updated email regex to allow only @gmail.com or @yahoo.com
         const emailRegex = /^[^\s@]+@(gmail\.com|yahoo\.com)$/;
         const passwordRegex =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-_#])[A-Za-z\d@$!%*?&-_#]{8,}$/;
+
         const errorMessage = document.getElementById("error-message");
-    
+
         if (!emailRegex.test(email)) {
-          errorMessage.innerText = "Email must be a valid Gmail or Yahoo address.";
+          errorMessage.innerText =
+            "Email must be a valid Gmail or Yahoo address.";
           return false;
         }
-    
+
         if (!passwordRegex.test(password)) {
           errorMessage.innerText =
             "Password should be at least 8 characters and contain an uppercase letter, a lowercase letter, a number, and a special character.";
           return false;
         }
-    
+
         return true;
       }
-    
+
       function togglePasswordVisibility() {
         const passwordField = document.getElementById("password");
         if (passwordField.type === "password") {
@@ -291,11 +312,11 @@
           passwordField.type = "password";
         }
       }
-    
+
       window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get("message");
-    
+
         if (message === "success") {
           document.getElementById("success-popup").style.display = "block";
         } else if (message) {
@@ -303,6 +324,5 @@
         }
       };
     </script>
-    
   </body>
 </html>

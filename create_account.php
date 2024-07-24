@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $user_type = 'resident'; // Set user_type to 'resident'
 
     // Check if email already exists
     $sql = "SELECT * FROM accounts WHERE email = ?";
@@ -31,9 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "An account with this email already exists!";
     } else {
         // Insert new account into the database
-        $sql = "INSERT INTO accounts (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO accounts (first_name, last_name, email, password, user_type) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $first_name, $last_name, $email, $password);
+        $stmt->bind_param("sssss", $first_name, $last_name, $email, $password, $user_type);
         if ($stmt->execute()) {
             $message = "success";
         } else {
