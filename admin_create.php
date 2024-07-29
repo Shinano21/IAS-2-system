@@ -259,7 +259,7 @@ header('Expires: 0');
             <i class="bi bi-wrench"></i>Services
         </a>
         <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-            <li><a class="dropdown-item" href="create_account.php">Create Account</a></li>
+            <li><a class="dropdown-item" href="admin_create.php">Create Account</a></li>
             <li><a class="dropdown-item" href="#">Nutrition</a></li>
             <li><a class="dropdown-item" href="#">More</a></li>
         </ul>
@@ -283,52 +283,37 @@ header('Expires: 0');
                     <div class="create-account-image">
                         <img src="images/manWithLaptop.jpg" alt="Working on a laptop" />
                     </div>
-                    <div class="create-account-form">
-                        <h2>Create Account</h2>
-                        <p>Fill in your details to create an account</p>
-                        <form
-                            name="createAccount"
-                            action="create_account.php"
-                            method="post"
-                            onsubmit="return validateForm()"
-                        >
-                            <input
-                                type="text"
-                                name="first_name"
-                                placeholder="First Name"
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="last_name"
-                                placeholder="Last Name"
-                                required
-                            />
-                            <input type="email" name="email" placeholder="Email" required />
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="Password"
-                                required
-                            />
-                            <div id="error-message" class="error-message"></div>
-                            <div class="show-password">
-                                <label for="show-password">Show Password</label>
-                                <input
-                                    type="checkbox"
-                                    id="show-password"
-                                    onclick="togglePasswordVisibility()"
-                                />
-                            </div>
-                            <div class="button-container">
-                                <button type="submit">Create Account</button>
-                            </div>
-                            <div class="login-link">
-                                <p>Already have an account? <a href="index.html">Login</a></p>
-                            </div>
-                        </form>
-                    </div>
+                   <div class="create-account-form">
+    <h2>Create Account</h2>
+    <p>Fill in your details to create an account</p>
+    <form name="createAccount" action="acreate.php" method="post" onsubmit="return validateForm()">
+        <input type="text" name="first_name" placeholder="First Name" required />
+        <input type="text" name="last_name" placeholder="Last Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" id="password" placeholder="Password" required />
+
+        <!-- Role Dropdown -->
+        <label for="role">Select Role:</label>
+        <select name="role" id="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="bhw">BHW</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <div id="error-message" class="error-message"></div>
+        <div class="show-password">
+            <label for="show-password">Show Password</label>
+            <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()" />
+        </div>
+        <div class="button-container">
+            <button type="submit">Create Account</button>
+        </div>
+        <div class="login-link">
+            <p>Already have an account? <a href="index.html">Login</a></p>
+        </div>
+    </form>
+</div>
+
                 </div>
             </div>
         </div>
